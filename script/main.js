@@ -62,8 +62,8 @@ showcase.addEventListener("click", (event) => {
 
     // favoriteArray.push(div);
   }
-  if (target.classList.contains('fa-bookmark')) {
-    console.log(target);
+  if (target.classList.contains('fa-solid fa-bookmark')) {
+    console.log(target.parentElement);
     // const li = target.parentElement;
     // console.log(li);
     // const div = li.previousElementSibling;
