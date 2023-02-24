@@ -31,7 +31,27 @@
 
 .iconBox {
   display: flex;
-  margin-left: 94%;
+  margin-left: 92%;
 }
+
+.beerTab {
+  opacity: 0.8;
+}
+
+.invisible {
+  display: none;
+}
+
+.favorites-container ul {
+  flex-direction: column;
+  color: rgb(92, 237, 82);
+}
+
+.favorites-container ul li {
+  margin: 5px;
+}
+
+
+
 
 
