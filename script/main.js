@@ -6,69 +6,77 @@ const apiUrlNC =
 
 const invisible = "invisible";
 
-fetch(apiUrlNC)
-  .then((response) => response.json())
-  .then((data) => {
-    data.forEach((item) => {
-      const brewBox = document.createElement("div");
-      brewBox.classList.add("brewBox");
-      brewBox.innerHTML = `
+async function fetchData() {
+  const response = await fetch(apiUrlNC);
+  const data = await response.json();
+  
+  data.forEach((item) => {
+    breweryArray.push(item);
+
+    //Build the DOM with the current item
+    const brewBox = document.createElement("div");
+    brewBox.classList.add("brewBox");
+    brewBox.innerHTML = `
       <div class = 'iconBox'>
-        <img data-select="" class="beerTab" title="Favorite" 
+        <img data-select="" class="beerTab" title="Favorites" 
         src="/images/beer_tab.png">
       </div>
       <div class = 'brewInfo'>
         <h3>${item.name}</h3>
       </div>
-      `;
-      showcase.append(brewBox);
+    `;
+    showcase.append(brewBox);
 
-      const cityDiv = document.createElement("div");
-      cityDiv.classList.add("cityDiv");
-      const cityText = document.createElement("h5");
-      cityText.textContent = `${item.city}, ${item.state}`;
-      brewBox.append(cityDiv);
-      cityDiv.append(cityText);
+    const cityDiv = document.createElement("div");
+    cityDiv.classList.add("cityDiv");
+    const cityText = document.createElement("h5");
+    cityText.textContent = `${item.city}, ${item.state}`;
+    brewBox.append(cityDiv);
+    cityDiv.append(cityText);
 
-      const webAddress = document.createElement("div");
-      webAddress.classList.add("webAddress");
-      const webText = document.createElement("a");
+    const webAddress = document.createElement("div");
+    webAddress.classList.add("webAddress");
+    const webText = document.createElement("a");
 
-      if (item.website_url) {
-        webText.href = item.website_url;
-        webText.textContent = "Click to visit website";
-      } else {
-        webText.textContent = "No website available";
+    if (item.website_url) {
+      webText.href = item.website_url;
+      webText.textContent = "Click to visit website";
+    } else {
+      webText.textContent = "No website available";
+    }
+    brewBox.append(webAddress);
+    webAddress.append(webText);
+  });
+
+  const beerTabs = document.querySelectorAll('.beerTab');
+  console.log(beerTabs);
+  console.log(breweryArray);
+
+  beerTabs.forEach((beerTab) => {
+    beerTab.addEventListener('click', (event) => {
+      const target = event.target;
+      const div = target.parentElement.parentElement;
+      div.classList.add(invisible);
+  
+      // Add selected brewery to favorite array.
+      const breweryName = div.querySelector('.brewInfo').textContent.trim();
+      favoriteArray.push(breweryName);
+      console.log(favoriteArray);
+      const favoriteCountCircle = document.querySelector('.favorite-count-circle');
+      if (favoriteArray.length > 0) {
+        favoriteCountCircle.classList.remove(invisible);
       }
-      brewBox.append(webAddress);
-      webAddress.append(webText);
+      favoriteCountCircle.textContent = favoriteArray.length;
+
     });
   });
-  
-showcase.addEventListener("click", (event) => {
-  const target = event.target;
-  if (target.classList.contains("beerTab")) {
-    const div = target.parentElement.parentElement;
-    div.classList.add(invisible);
+}
 
-    const ul = document.getElementById('favorites-list');
-    const name = div.querySelector('.brewInfo').textContent;
-    const listItem = document.createElement('li');
-    listItem.innerHTML = `
-    <i title = "remove" class="fa-solid fa-bookmark"></i>
-    ${name}
-    `
-    ul.appendChild(listItem);
+fetchData();
 
-    // favoriteArray.push(div);
-  }
-  if (target.classList.contains('fa-solid fa-bookmark')) {
-    console.log(target.parentElement);
-    // const li = target.parentElement;
-    // console.log(li);
-    // const div = li.previousElementSibling;
-    // li.remove();
-    // div.classList.remove(invisible);
-  }
-});
+
+
+
+
+
 

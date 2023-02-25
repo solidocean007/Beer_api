@@ -15,18 +15,24 @@
     <div class="logo-box">
       <h1>LOGO</h1>
     </div>
+    
     <div class="nav-box">
       <ul>
-        <li><a href="#" class="btn">Favorites</a ></li>
-        <li><a href="#" class="btn">Contact</a ></li>
-        <li><a href="#" class="btn">Drink</a ></li>
+        <li id="favoriteSelect"><a href="#" class="btn">Favorites</a >
+          <div class="favorite-count-circle invisible"></div>
+        </li>
+        <li><a href="#" class="btn">About</a ></li>
       </ul>
     </div>
   </div> 
-  <div class="favorites-container">
-    <ul id="favorites-list">
-    </ul>
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Favorites</h2>
+      <ul class="favorites-list-modal"></ul>
+    </div>
   </div>
+  
   
   <section>
 <i class=""></i>
@@ -35,5 +41,6 @@
 
   <script src="./script/main.js"></script>
   <script src="./script/api.js"></script>
+  <script src="./script/favorite.js"></script>
 </body>
 </html>
