@@ -46,14 +46,23 @@ favoriteSelect.addEventListener('click', () => {
   document.querySelectorAll('.removeFavorite').forEach((removeButton) => {
     removeButton.addEventListener('click', (event) => {
       const listItem = event.target.parentElement;
-      const breweryName = listItem.textContent.slice(2); // remove the 'x ' from the beginning of the text
+      console.log(listItem.textContent + ': before slice(1)')
+      const breweryName = listItem.textContent.slice(1); // remove the 'x ' from the beginning of the text
+      console.log(breweryName + ': is breweryName')
       favoriteArray.splice(favoriteArray.indexOf(breweryName), 1); // remove the brewery name from the favorite array
       listItem.remove(); // remove the list item from the favorites list modal
 
       // Find the corresponding element in the DOM and make it visible again
       const brewBox = Array.from(document.querySelectorAll('.brewBox')).find((box) => {
-        return box.querySelector('.brewInfo').textContent.trim() === breweryName;
+
+        const brewInfo = box.querySelector('.brewInfo');
+        if (brewInfo) {
+          const boxBreweryName = brewInfo.textContent.split(',')[0].trim();
+          return boxBreweryName === breweryName;
+        }
       });
+      console.log(brewBox)
+
       if (brewBox) {
         brewBox.classList.remove('invisible');
       }
@@ -75,8 +84,8 @@ closeModalButton.addEventListener('click', () => {
 });
 
 // Add a click event listener to the window to close the modal if the user clicks outside of it
-// window.addEventListener('click', (event) => {
-//   if (event.target == modal) {
-//     modal.style.display
-//   });
-// });
+window.addEventListener('click', (event) => {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+};
+});

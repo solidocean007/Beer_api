@@ -68,3 +68,22 @@ h3 {
   margin: 0;
   padding: 0;
 }
+
+.sortBox {
+  margin: 1rem;
+}
+
+.sortBox button {
+  color: blue;
+}
+
+.filterZone {
+  display: inline-flex;
+  align-items: center;
+}
+
+.filterType {
+  display: flex;
+  max-height: 2rem;
+  align-items: center;
+}

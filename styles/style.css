@@ -108,6 +108,12 @@
   width: 60%;
 }
 
+.breweryType {
+  color: #001300;
+  text-transform: uppercase;
+
+}
+
 .close {
   float: right;
   font-size: 28px;

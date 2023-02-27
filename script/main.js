@@ -24,6 +24,9 @@ async function fetchData() {
       <div class = 'brewInfo'>
         <h3>${item.name}</h3>
       </div>
+      <div class = 'breweryType'>
+        <h4>${item.brewery_type}</h4>
+      </div>
     `;
     showcase.append(brewBox);
 
@@ -73,6 +76,90 @@ async function fetchData() {
 }
 
 fetchData();
+
+// Sort collection in ascending order
+function sortCollectionAsc() {
+  const brewBoxes = document.querySelectorAll('.brewBox');
+  const sortedBrewBoxes = Array.from(brewBoxes).sort((a, b) => {
+    const aName = a.querySelector('.brewInfo').textContent.trim();
+    const bName = b.querySelector('.brewInfo').textContent.trim();
+    if (aName < bName) {
+      return -1;
+    }
+    if (aName > bName) {
+      return 1;
+    }
+    return 0;
+  });
+  sortedBrewBoxes.forEach((brewBox) => {
+    brewBox.parentElement.appendChild(brewBox);
+  });
+}
+
+// Sort collection in descending order
+function sortCollectionDesc() {
+  const brewBoxes = document.querySelectorAll('.brewBox');
+  const sortedBrewBoxes = Array.from(brewBoxes).sort((a, b) => {
+    const aName = a.querySelector('.brewInfo').textContent.trim();
+    const bName = b.querySelector('.brewInfo').textContent.trim();
+    if (aName > bName) {
+      return -1;
+    }
+    if (aName < bName) {
+      return 1;
+    }
+    return 0;
+  });
+  sortedBrewBoxes.forEach((brewBox) => {
+    brewBox.parentElement.appendChild(brewBox);
+  });
+}
+
+// Sort favorites list in ascending order
+function sortFavoritesAsc() {
+  const favoriteList = document.querySelector('.favorites-list-modal');
+  const favoriteItems = Array.from(favoriteList.querySelectorAll('li'));
+  const sortedFavorites = favoriteItems.sort((a, b) => {
+    const aName = a.textContent.trim().slice(1);
+    const bName = b.textContent.trim().slice(1);
+    if (aName < bName) {
+      return -1;
+    }
+    if (aName > bName) {
+      return 1;
+    }
+    return 0;
+  });
+  sortedFavorites.forEach((favorite) => {
+    favoriteList.appendChild(favorite);
+  });
+}
+
+// Sort favorites list in descending order
+function sortFavoritesDesc() {
+  const favoriteList = document.querySelector('.favorites-list-modal');
+  const favoriteItems = Array.from(favoriteList.querySelectorAll('li'));
+  const sortedFavorites = favoriteItems.sort((a, b) => {
+    const aName = a.textContent.trim().slice(1);
+    const bName = b.textContent.trim().slice(1);
+    if (aName > bName) {
+      return -1;
+    }
+    if (aName < bName) {
+      return 1;
+    }
+    return 0;
+  });
+  sortedFavorites.forEach((favorite) => {
+    favoriteList.appendChild(favorite);
+  });
+}
+
+// const totalMicrobreweries = document.querySelectorAll('.brewBox').length;
+// const totalMicrobreweriesElement = document.querySelector('#totalMicrobreweries');
+// totalMicrobreweriesElement.textContent = `Total Microbreweries: ${totalMicrobreweries}`;
+
+
 
 
 
