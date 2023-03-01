@@ -73,11 +73,18 @@ async function fetchData() {
     });
   });
 
+  // Create array of brew types with count as value
   const brewTypes = breweryArray.reduce((acc, curr) => {
     const type = curr.brewery_type;
-    acc[type] = (acc[type] || 0) + 1;
+    if (acc[type]) {
+      acc[type] = acc[type] + 1;
+    } else {
+      acc[type] = 1;
+    }
     return acc;
   }, {});
+
+  console.log(brewTypes)
 
  // Create an unordered list element
  const typeList = document.createElement('ul');
