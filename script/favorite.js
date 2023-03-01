@@ -89,3 +89,57 @@ window.addEventListener('click', (event) => {
     modal.style.display = 'none';
 };
 });
+
+// Sort favorites list in ascending order
+function sortFavoritesAsc() {
+  const favoriteList = document.querySelector('.favorites-list-modal');
+  const favoriteItems = Array.from(favoriteList.querySelectorAll('li'));
+  const sortedFavorites = favoriteItems.sort((a, b) => {
+    const aName = a.textContent.trim().slice(1);
+    const bName = b.textContent.trim().slice(1);
+    if (aName < bName) {
+      return -1;
+    }
+    if (aName > bName) {
+      return 1;
+    }
+    return 0;
+  });
+  sortedFavorites.forEach((favorite) => {
+    favoriteList.appendChild(favorite);
+  });
+}
+
+// Sort favorites list in descending order
+function sortFavoritesDesc() {
+  const favoriteList = document.querySelector('.favorites-list-modal');
+  const favoriteItems = Array.from(favoriteList.querySelectorAll('li'));
+  const sortedFavorites = favoriteItems.sort((a, b) => {
+    const aName = a.textContent.trim().slice(1);
+    const bName = b.textContent.trim().slice(1);
+    if (aName > bName) {
+      return -1;
+    }
+    if (aName < bName) {
+      return 1;
+    }
+    return 0;
+  });
+  sortedFavorites.forEach((favorite) => {
+    favoriteList.appendChild(favorite);
+  });
+}
+
+// Toggle sort functionality for favorites
+const favoritesToggleButton = document.querySelector('.favoritesToggleSort');
+  favoritesToggleButton.addEventListener('click', () => {
+    if (favoritesToggleButton.classList.contains('sorted-asc')){
+      sortFavoritesDesc();
+      favoritesToggleButton.classList.remove('sorted-asc');
+      favoritesToggleButton.classList.add('sorted-desc');
+    } else {
+      sortFavoritesAsc();
+      favoritesToggleButton.classList.remove('sorted-desc');
+      favoritesToggleButton.classList.add('sorted-asc');
+    }
+  });

@@ -8,6 +8,12 @@
       src="https://kit.fontawesome.com/7621dca696.js"
       crossorigin="anonymous"
     ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Oswald&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/base.css" />
     <title>Beer</title>
@@ -15,33 +21,25 @@
   <body>
     <div class="header">
       <div class="logo-box">
-        <h1>LOGO</h1>
-        <div class="filterZone">
-          <button class="filterType btn">Filter</button>
-        </div>
-      
+        <h1>NC Beer</h1>
+        <div class="typeArea"></div>
       </div>
 
-      <div class="nav-box">
-        <div class="sortBox">
-          <button onclick="sortCollectionAsc()">Sort A-Z</button>
-          <button onclick="sortCollectionDesc()">Sort Z-A</button>
+      <div class="favorite-box">
+        <div id="favoriteSelect">
+          <div href="#" class="btn">Favorites</div>
+          <div class="favorite-count-circle invisible"></div>
         </div>
-        
 
-        <ul>
-          <li id="favoriteSelect">
-            <a href="#" class="btn">Favorites</a>
-            <div class="favorite-count-circle invisible"></div>
-          </li>
-          <li><a href="#" class="btn">About</a></li>
-        </ul>
+        <div class="sortBox">
+          <button id="collectionSort" class="toggle toggleSort sorted-asc btn" >Toggle Sort</button>
+        </div>
       </div>
     </div>
+
     <div class="modal">
       <div class="modal-content">
-        <button onclick="sortFavoritesAsc()">Sort A-Z</button>
-        <button onclick="sortFavoritesDesc()">Sort Z-A</button>
+        <button id="favoriteSorting" class="toggle favoritesToggleSort sorted-asc btn" >Toggle Sort</button>
         <span class="close">&times;</span>
         <h2>Favorites</h2>
         <ul class="favorites-list-modal"></ul>
