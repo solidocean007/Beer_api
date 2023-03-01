@@ -18,28 +18,29 @@ async function fetchData() {
     brewBox.classList.add("brewBox");
     brewBox.innerHTML = `
       <div class = 'iconBox'>
-        <img data-select="" class="beerTab" title="Favorites" 
-        src="/images/beer_tab.png">
+      <i class="star fa-regular fa-star"></i>
       </div>
-      <div class = 'brewInfo'>
-        <h3>${item.name}</h3>
+      <div>
+        <div class = 'brewInfo'>
+          <h3>${item.name}</h3>
+        </div>
+        <div class = 'breweryType'>
+          <h6>Brew type: </h6>
+          <h4>${item.brewery_type}</h4>
+        </div>
       </div>
-      <div class = 'breweryType'>
-        <h4>${item.brewery_type}</h4>
+      <div class = 'cityAndWebAddress'>
+        <div class = 'cityDiv'>
+          <h5>${item.city}, ${item.state}</h5>
+        </div>
+       
       </div>
     `;
     showcase.append(brewBox);
 
-    const cityDiv = document.createElement("div");
-    cityDiv.classList.add("cityDiv");
-    const cityText = document.createElement("h5");
-    cityText.textContent = `${item.city}, ${item.state}`;
-    brewBox.append(cityDiv);
-    cityDiv.append(cityText);
-
-    const webAddress = document.createElement("div");
-    webAddress.classList.add("webAddress");
-    const webText = document.createElement("a");
+    const webAddress = document.createElement('div');
+    webAddress.classList.add('webAddress');
+    const webText = document.createElement('a');
 
     if (item.website_url) {
       webText.href = item.website_url;
@@ -51,11 +52,10 @@ async function fetchData() {
     webAddress.append(webText);
   });
 
-  const beerTabs = document.querySelectorAll('.beerTab');
-  console.log(breweryArray);
+  const stars = document.querySelectorAll('.fa-star');
 
-  beerTabs.forEach((beerTab) => {
-    beerTab.addEventListener('click', (event) => {
+  stars.forEach((star) => {
+    star.addEventListener('click', (event) => {
       const target = event.target;
       const div = target.parentElement.parentElement;
       div.classList.add(invisible);

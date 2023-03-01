@@ -5,7 +5,6 @@
   max-width: 10rem;
   box-shadow: 0px 9px 43px -12px rgba(0, 0, 0, 0.88);
   padding: 8px;
-  /* font-family: 'Oswald', sans-serif; */
 }
 
 .header {
@@ -125,6 +124,12 @@
   width: 60%;
 }
 
+.brewInfo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .breweryType {
   color: #001300;
   text-transform: uppercase;
@@ -144,6 +149,8 @@
 
 .favorites-list-modal li {
   padding: 1rem;
+  display: flex;
+  line-height: 20px;
 }
 
 .favorites-list-modal span {

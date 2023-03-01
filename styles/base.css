@@ -104,6 +104,9 @@ h3 {
 }
 
 @media (max-width: 768px) {
+  section {
+    margin-top: 200px;
+  }
   .modal-content {
     margin: 1rem auto;
     width: 80%;
@@ -122,7 +125,6 @@ h3 {
 
   .brewBox {
     width: 95%;
-    display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
   }
