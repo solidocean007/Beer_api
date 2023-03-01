@@ -2,11 +2,13 @@ section,
 footer,
 header,
 main,
-nav{
+nav {
   display: block;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -27,6 +29,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
 }
 
 .sortBox {
@@ -43,7 +46,7 @@ a {
   list-style: none;
   display: flex;
   text-decoration: none;
-  background-color: rgb(250,235,215, 0.5);
+  background-color: rgb(250, 235, 215, 0.5);
   box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.4);
   padding: 8px;
 }
@@ -76,9 +79,10 @@ li a:hover {
 }
 
 section {
+  margin-top: 300px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center
+  justify-content: center;
 }
 
 h3 {
@@ -97,4 +101,49 @@ h3 {
   display: flex;
   max-height: 2rem;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    margin: 1rem auto;
+    width: 80%;
+  }
+
+  .logo-box {
+    max-width: 70%;
+  }
+
+  .typeArea {
+    font-size: smaller;
+  }
+  .favorite-box {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .header {
+    padding: 0;
+    margin: 0;
+  }
+
+  h1 {
+    margin: 10px;
+  }
+
+  .logo-box {
+    display: flex;
+    max-width: 100%;
+  }
+
+  .typeArea ul {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: x-small;
+    max-width: 90%;
+  }
+
+  .favorite-box {
+    flex-direction: row;
+  }
 }
