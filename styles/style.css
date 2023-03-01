@@ -80,11 +80,12 @@
   right: 0.5rem;
   background-color: rgb(119, 205, 135);
   color: white;
-  border-top-left-radius: 30%;
-  border-bottom-right-radius: 30%;
-  border: 5px solid black;
-  padding: 5px;
-  font-size: 0.8rem;
+  border-radius: 50%;
+  border: 3px solid black;
+  padding: 15px;
+  font-size: 1rem;
+  font-family: inter;
+  font-weight: 800;
   width: 2rem;
   height: 2rem;
   display: flex;
