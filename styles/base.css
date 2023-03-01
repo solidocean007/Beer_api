@@ -119,6 +119,17 @@ h3 {
   .favorite-box {
     flex-direction: column;
   }
+
+  .brewBox {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .iconBox {
+    margin: 0;
+  }
 }
 
 @media (max-width: 500px) {
