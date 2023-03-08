@@ -2,14 +2,11 @@ const showcase = document.querySelector("section");
 let breweryArray = [];
 let favoriteArray = [];
 const apiUrlNC =
-  "https://api.openbrewerydb.org/breweries?by_state=north_carolina&per_page=30";
+  "https://api.openbrewerydb.org/breweries?by_state=north_carolina&per_page=50";
 
 const invisible = "invisible";
 
-async function fetchData() {
-  const response = await fetch(apiUrlNC);
-  const data = await response.json();
-  
+function createCards(data) {
   data.forEach((item) => {
     breweryArray.push(item);
 
@@ -18,7 +15,7 @@ async function fetchData() {
     brewBox.classList.add("brewBox");
     brewBox.innerHTML = `
       <div class = 'iconBox'>
-      <i class="star fa-regular fa-star"></i>
+    <i class="star fa-regular fa-star"></i>
       </div>
       <div>
         <div class = 'brewInfo'>
@@ -39,21 +36,23 @@ async function fetchData() {
     showcase.append(brewBox);
 
     const webAddress = document.createElement('div');
-    webAddress.classList.add('webAddress');
-    const webText = document.createElement('a');
+  webAddress.classList.add('webAddress');
+  const webText = document.createElement('a');
 
-    if (item.website_url) {
-      webText.href = item.website_url;
-      webText.textContent = "Click to visit website";
-    } else {
-      webText.textContent = "No website available";
-    }
-    brewBox.append(webAddress);
-    webAddress.append(webText);
-  });
+  if (item.website_url) {
+    webText.href = item.website_url;
+    webText.textContent = "Click to visit website";
+  } else {
+    webText.textContent = "No website available";
+  }
+  brewBox.append(webAddress);
+  webAddress.append(webText);
+  })
+};
 
+
+function doSomethingStars() {
   const stars = document.querySelectorAll('.fa-star');
-
   stars.forEach((star) => {
     star.addEventListener('click', (event) => {
       const target = event.target;
@@ -69,10 +68,11 @@ async function fetchData() {
         favoriteCountCircle.classList.remove(invisible);
       }
       favoriteCountCircle.textContent = favoriteArray.length;
-
     });
   });
+}
 
+function doSomethingBrew() {
   // Create array of brew types with count as value
   const brewTypes = breweryArray.reduce((acc, curr) => {
     const type = curr.brewery_type;
@@ -84,7 +84,6 @@ async function fetchData() {
     return acc;
   }, {});
 
-  console.log(brewTypes)
 
  // Create an unordered list element
  const typeList = document.createElement('ul');
@@ -102,38 +101,26 @@ async function fetchData() {
  typeArea.appendChild(typeList);
 }
 
+
+async function fetchData() {
+  const response = await fetch(apiUrlNC);
+  const data = await response.json();
+
+  createCards(data);
+  doSomethingStars();
+  doSomethingBrew();
+}
 fetchData();
 
-// Sort collection in ascending order
-function sortCollectionAsc() {
+function sortCollection(direction) {
   const brewBoxes = document.querySelectorAll('.brewBox');
   const sortedBrewBoxes = Array.from(brewBoxes).sort((a, b) => {
-    const aName = a.querySelector('.brewInfo').textContent.trim();
-    const bName = b.querySelector('.brewInfo').textContent.trim();
+    const [aName, bName] = [a, b].map((item) => item.querySelector('.brewInfo').textContent.trim());
     if (aName < bName) {
-      return -1;
+      return direction === 'asc' ? -1 : 1;
     }
     if (aName > bName) {
-      return 1;
-    }
-    return 0;
-  });
-  sortedBrewBoxes.forEach((brewBox) => {
-    brewBox.parentElement.appendChild(brewBox);
-  });
-}
-
-// Sort collection in descending order
-function sortCollectionDesc() {
-  const brewBoxes = document.querySelectorAll('.brewBox');
-  const sortedBrewBoxes = Array.from(brewBoxes).sort((a, b) => {
-    const aName = a.querySelector('.brewInfo').textContent.trim();
-    const bName = b.querySelector('.brewInfo').textContent.trim();
-    if (aName > bName) {
-      return -1;
-    }
-    if (aName < bName) {
-      return 1;
+      return direction === 'asc' ? 1 : -1;
     }
     return 0;
   });
@@ -145,36 +132,12 @@ function sortCollectionDesc() {
 // Toggle sort functionality for collection
 const toggleButton = document.querySelector('.toggleSort');
   toggleButton.addEventListener('click', () => {
-    if (toggleButton.classList.contains('sorted-asc')){
-      sortCollectionDesc();
-      toggleButton.classList.remove('sorted-asc');
-      toggleButton.classList.add('sorted-desc');
-    } else {
-      sortCollectionAsc();
-      toggleButton.classList.remove('sorted-desc');
-      toggleButton.classList.add('sorted-asc');
-    }
+    const condition = toggleButton.classList.contains('sorted-asc');
+    const dir = condition ? 'desc' : 'asc'
+    const params = condition
+      ? ['sorted-asc', 'sorted-desc']
+      : ['sorted-desc', 'sorted-asc'];
+    sortCollection(dir);
+    toggleButton.classList.remove(params[0]);
+    toggleButton.classList.add(params[1]);
   });
-
-
-// // dry attempt
-// const toggleButtonDry = document.querySelector('.toggle');
-//   toggleButtonDry.addEventListener('click', (event) => {
-//     const target = event.currentTarget;
-//     console.log(target + ' : is target')
-//     if (target.id === 'collectionSort' && target.classList.contains('sorted-asc')) {
-//       sortCollectionDesc();
-//       target.classList.remove('sorted-asc');
-//       target.classList.add('sorted-desc');
-//     } else {
-//       sortCollectionAsc();
-//       target.classList.remove('sorted-desc');
-//       target.classList.add('sorted-asc');
-//     }
-//   });
-
-
-
-
-
-
