@@ -19,18 +19,14 @@ favoriteSelect.addEventListener('click', () => {
 
     span.addEventListener('click', () => {
       const index = favoriteArray.indexOf(favorite);
-      // Remove the corresponding item from the favoriteArray
       favoriteArray.splice(index, 1);
-      // Remove the corresponding list item from the favorites list
       li.remove();
-      // Make the original item visible again
       const brewBoxes = document.querySelectorAll('.brewBox');
       brewBoxes.forEach((brewBox) => {
         if (brewBox.querySelector('.brewInfo').textContent.trim() === favorite) {
           brewBox.classList.remove('invisible');
         }
       });
-      // Update the favorite count circle
       const favoriteCountCircle = document.querySelector('.favorite-count-circle');
       if (favoriteArray.length === 0) {
         favoriteCountCircle.classList.add('invisible');
@@ -46,22 +42,18 @@ favoriteSelect.addEventListener('click', () => {
   document.querySelectorAll('.removeFavorite').forEach((removeButton) => {
     removeButton.addEventListener('click', (event) => {
       const listItem = event.target.parentElement;
-      console.log(listItem.textContent + ': before slice(1)')
-      const breweryName = listItem.textContent.slice(1); // remove the 'x ' from the beginning of the text
-      console.log(breweryName + ': is breweryName')
-      favoriteArray.splice(favoriteArray.indexOf(breweryName), 1); // remove the brewery name from the favorite array
-      listItem.remove(); // remove the list item from the favorites list modal
+      const breweryName = listItem.textContent.slice(1); 
+      favoriteArray.splice(favoriteArray.indexOf(breweryName), 1);
+      listItem.remove();
 
       // Find the corresponding element in the DOM and make it visible again
       const brewBox = Array.from(document.querySelectorAll('.brewBox')).find((box) => {
-
         const brewInfo = box.querySelector('.brewInfo');
         if (brewInfo) {
           const boxBreweryName = brewInfo.textContent.split(',')[0].trim();
           return boxBreweryName === breweryName;
         }
       });
-      console.log(brewBox)
 
       if (brewBox) {
         brewBox.classList.remove('invisible');
@@ -77,13 +69,13 @@ favoriteSelect.addEventListener('click', () => {
   });
 });
 
-// Add a click event listener to the modal's close button to hide the modal
+//hide modal on click
 const closeModalButton = document.querySelector('.close');
 closeModalButton.addEventListener('click', () => {
   modal.style.display = 'none';
 });
 
-// Add a click event listener to the window to close the modal if the user clicks outside of it
+// close modal on click of screen
 window.addEventListener('click', (event) => {
   if (event.target == modal) {
     modal.style.display = 'none';

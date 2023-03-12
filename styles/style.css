@@ -97,12 +97,6 @@
   box-shadow: #a2df9f;
 }
 
-/* .favorite-count-circle:hover {
-  width: 2.5rem;
-  right: .8rem;
-  font-size: large;
-} */
-
 .modal {
   display: none;
   position: fixed;
