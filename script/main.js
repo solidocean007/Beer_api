@@ -2,7 +2,7 @@ const showcase = document.querySelector("section");
 let breweryArray = [];
 let favoriteArray = [];
 const apiUrlNC =
-  "https://api.openbrewerydb.org/breweries?by_state=north_carolina&per_page=50";
+  "https://api.openbrewerydb.org/v1/breweries?by_state=north_carolina";
 
 const invisible = "invisible";
 
@@ -106,6 +106,7 @@ async function fetchData() {
   const response = await fetch(apiUrlNC);
   const data = await response.json();
 
+  console.log(data);
   createCards(data);
   doSomethingStars();
   doSomethingBrew();
