@@ -35,35 +35,36 @@ function createCards(data) {
     `;
     showcase.append(brewBox);
 
-    const webAddress = document.createElement('div');
-  webAddress.classList.add('webAddress');
-  const webText = document.createElement('a');
+    const webAddress = document.createElement("div");
+    webAddress.classList.add("webAddress");
+    const webText = document.createElement("a");
 
-  if (item.website_url) {
-    webText.href = item.website_url;
-    webText.textContent = "Click to visit website";
-  } else {
-    webText.textContent = "No website available";
-  }
-  brewBox.append(webAddress);
-  webAddress.append(webText);
-  })
-};
+    if (item.website_url) {
+      webText.href = item.website_url;
+      webText.textContent = "Click to visit website";
+    } else {
+      webText.textContent = "No website available";
+    }
+    brewBox.append(webAddress);
+    webAddress.append(webText);
+  });
+}
 
-
-function doSomethingStars() {
-  const stars = document.querySelectorAll('.fa-star');
+function addSelectedCardsToFavorites() {
+  const stars = document.querySelectorAll(".fa-star");
   stars.forEach((star) => {
-    star.addEventListener('click', (event) => {
+    star.addEventListener("click", (event) => {
       const target = event.target;
       const div = target.parentElement.parentElement;
       div.classList.add(invisible);
-  
+
       // Add selected brewery to favorite array.
-      const breweryName = div.querySelector('.brewInfo').textContent.trim();
+      const breweryName = div.querySelector(".brewInfo").textContent.trim();
       favoriteArray.push(breweryName);
       console.log(favoriteArray);
-      const favoriteCountCircle = document.querySelector('.favorite-count-circle');
+      const favoriteCountCircle = document.querySelector(
+        ".favorite-count-circle"
+      );
       if (favoriteArray.length > 0) {
         favoriteCountCircle.classList.remove(invisible);
       }
@@ -84,44 +85,53 @@ function doSomethingBrew() {
     return acc;
   }, {});
 
+  // Create an unordered list element
+  const typeList = document.createElement("ul");
 
- // Create an unordered list element
- const typeList = document.createElement('ul');
+  // Add a list item for each brewery type
+  for (const type in brewTypes) {
+    const typeCount = brewTypes[type];
+    const listItem = document.createElement("li");
+    listItem.textContent = `${type}: ${typeCount}`;
+    typeList.appendChild(listItem);
+  }
 
- // Add a list item for each brewery type
- for (const type in brewTypes) {
-  const typeCount = brewTypes[type];
-  const listItem = document.createElement('li');
-  listItem.textContent = `${type}: ${typeCount}`;
-  typeList.appendChild(listItem);
- }
-
- // Append the list to the typeArea
- const typeArea = document.querySelector('.typeArea');
- typeArea.appendChild(typeList);
+  // Append the list to the typeArea
+  const typeArea = document.querySelector(".typeArea");
+  typeArea.appendChild(typeList);
 }
 
-
 async function fetchData() {
-  const response = await fetch(apiUrlNC);
-  const data = await response.json();
+  try {
+    const response = await fetch(apiUrlNC);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
 
-  console.log(data);
-  createCards(data);
-  doSomethingStars();
-  doSomethingBrew();
+    createCards(data);
+    addSelectedCardsToFavorites();
+    doSomethingBrew();
+  } catch (error) {
+    console.log("Error fetching data:", error);
+    alert(
+      "Sorry, there was an error fetching the data. Please try again later."
+    );
+  }
 }
 fetchData();
 
 function sortCollection(direction) {
-  const brewBoxes = document.querySelectorAll('.brewBox');
+  const brewBoxes = document.querySelectorAll(".brewBox");
   const sortedBrewBoxes = Array.from(brewBoxes).sort((a, b) => {
-    const [aName, bName] = [a, b].map((item) => item.querySelector('.brewInfo').textContent.trim());
+    const [aName, bName] = [a, b].map((item) =>
+      item.querySelector(".brewInfo").textContent.trim()
+    );
     if (aName < bName) {
-      return direction === 'asc' ? -1 : 1;
+      return direction === "asc" ? -1 : 1;
     }
     if (aName > bName) {
-      return direction === 'asc' ? 1 : -1;
+      return direction === "asc" ? 1 : -1;
     }
     return 0;
   });
@@ -131,14 +141,14 @@ function sortCollection(direction) {
 }
 
 // Toggle sort functionality for collection
-const toggleButton = document.querySelector('.toggleSort');
-  toggleButton.addEventListener('click', () => {
-    const condition = toggleButton.classList.contains('sorted-asc');
-    const dir = condition ? 'desc' : 'asc'
-    const params = condition
-      ? ['sorted-asc', 'sorted-desc']
-      : ['sorted-desc', 'sorted-asc'];
-    sortCollection(dir);
-    toggleButton.classList.remove(params[0]);
-    toggleButton.classList.add(params[1]);
-  });
+const toggleButton = document.querySelector(".toggleSort");
+toggleButton.addEventListener("click", () => {
+  const condition = toggleButton.classList.contains("sorted-asc");
+  const dir = condition ? "desc" : "asc";
+  const params = condition
+    ? ["sorted-asc", "sorted-desc"]
+    : ["sorted-desc", "sorted-asc"];
+  sortCollection(dir);
+  toggleButton.classList.remove(params[0]);
+  toggleButton.classList.add(params[1]);
+});
